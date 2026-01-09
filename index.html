@@ -3,206 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ขอเป็นแฟนนะ 😳💕</title>
+<title>ขอเป็นแฟนนะม่อน 😳💕</title>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #e0f2ff 0%, #a5d8ff 50%, #74c0fc 100%);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        padding: 20px;
-        transition: background 1s ease;
-    }
+body{
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:linear-gradient(135deg,#e0f2ff 0%,#a5d8ff 50%,#74c0fc 100%);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    padding:20px;
+    transition:background 1s ease;
+}
 
-    body.accepted {
-        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
-    }
+body.accepted{
+    background:linear-gradient(135deg,#ffecd2 0%,#fcb69f 50%,#ff9a9e 100%);
+}
 
-    .container {
-        background: rgba(255, 255, 255, 0.98);
-        padding: 40px;
-        border-radius: 30px;
-        text-align: center;
-        box-shadow: 0 20px 60px rgba(116, 192, 252, 0.4);
-        max-width: 600px;
-        width: 100%;
-        border: 3px solid #74c0fc;
-        min-height: 400px;
-        transition: all 1s ease;
-    }
+.container{
+    background:rgba(255,255,255,0.98);
+    padding:40px;
+    border-radius:30px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(116,192,252,0.4);
+    max-width:600px;
+    width:100%;
+    border:3px solid #74c0fc;
+    min-height:400px;
+    transition:all 1s ease;
+}
 
-    body.accepted .container {
-        box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4);
-        border-color: #ffb6c1;
-    }
+body.accepted .container{
+    box-shadow:0 20px 60px rgba(255,182,193,0.4);
+    border-color:#ffb6c1;
+}
 
-    h1 {
-        color: #4dabf7;
-        font-size: 2.5em;
-        margin-bottom: 25px;
-        animation: pulse 2s infinite;
-        text-shadow: 2px 2px 4px rgba(116, 192, 252, 0.5);
-    }
+h1{
+    color:#4dabf7;
+    font-size:2.4em;
+    margin-bottom:25px;
+    animation:pulse 2s infinite;
+}
 
-    body.accepted h1 {
-        color: #ff69b4;
-    }
+body.accepted h1{color:#ff69b4;}
 
-    .question-screen {
-        display: none;
-        animation: fadeIn 0.5s;
-    }
+.question-screen{display:none;animation:fadeIn 0.5s;}
+.question-screen.active{display:block;}
 
-    .question-screen.active {
-        display: block;
-    }
+.question-text{
+    font-size:1.6em;
+    color:#333;
+    margin-bottom:30px;
+    font-weight:600;
+}
 
-    .question-text {
-        font-size: 1.6em;
-        color: #333;
-        margin-bottom: 30px;
-        font-weight: 500;
-    }
+.answer-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
 
-    .answer-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
+.answer-btn{
+    padding:14px 30px;
+    font-size:1.1em;
+    border:2px solid #74c0fc;
+    border-radius:15px;
+    cursor:pointer;
+    transition:all 0.3s;
+    background:white;
+    color:#4dabf7;
+    font-weight:600;
+}
 
-    .answer-btn {
-        padding: 14px 30px;
-        font-size: 1.1em;
-        border: 2px solid #74c0fc;
-        border-radius: 15px;
-        cursor: pointer;
-        transition: all 0.3s;
-        background: white;
-        color: #4dabf7;
-        font-weight: 600;
-    }
+.answer-btn:hover{
+    background:linear-gradient(135deg,#a5d8ff 0%,#74c0fc 100%);
+    color:white;
+    transform:scale(1.05);
+    border-color:transparent;
+}
 
-    .answer-btn:hover {
-        background: linear-gradient(135deg, #a5d8ff 0%, #74c0fc 100%);
-        color: white;
-        transform: scale(1.05);
-        border-color: transparent;
-    }
+.progress-bar{
+    width:100%;
+    height:8px;
+    background:#f0f0f0;
+    border-radius:10px;
+    margin-bottom:30px;
+    overflow:hidden;
+}
 
-    .progress-bar {
-        width: 100%;
-        height: 8px;
-        background: #f0f0f0;
-        border-radius: 10px;
-        margin-bottom: 30px;
-        overflow: hidden;
-    }
+.progress-fill{
+    height:100%;
+    background:linear-gradient(90deg,#a5d8ff 0%,#74c0fc 100%);
+    transition:width 0.5s ease;
+}
 
-    .progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #a5d8ff 0%, #74c0fc 100%);
-        transition: width 0.5s ease;
-    }
+body.accepted .progress-fill{
+    background:linear-gradient(90deg,#ffc3a0 0%,#ffafbd 100%);
+}
 
-    body.accepted .progress-fill {
-        background: linear-gradient(90deg, #ffc3a0 0%, #ffafbd 100%);
-    }
+.final-question{
+    font-size:1.7em;
+    color:#333;
+    margin:30px 0;
+    font-weight:700;
+}
 
-    .final-question {
-        font-size: 1.7em;
-        color: #333;
-        margin: 30px 0;
-        font-weight: 600;
-    }
+.buttons{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    margin-top:30px;
+}
 
-    .buttons {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        margin-top: 30px;
-    }
+button{
+    padding:14px 40px;
+    font-size:1.1em;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    transition:all 0.3s;
+    font-weight:bold;
+}
 
-    button {
-        padding: 14px 40px;
-        font-size: 1.1em;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-weight: bold;
-    }
+.yes-btn{
+    background:linear-gradient(135deg,#ffc3a0 0%,#ffafbd 100%);
+    color:white;
+}
 
-    .yes-btn {
-        background: linear-gradient(135deg, #ffc3a0 0%, #ffafbd 100%);
-        color: white;
-    }
+.yes-btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 10px 30px rgba(255,175,189,0.6);
+}
 
-    .yes-btn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 10px 30px rgba(255, 175, 189, 0.6);
-    }
+.no-btn{
+    background:#ddd;
+    color:#666;
+    position:relative;
+}
 
-    .no-btn {
-        background: #ddd;
-        color: #666;
-        position: relative;
-    }
+.flowers,.hearts{
+    position:fixed;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:1;
+}
 
-    .flowers, .hearts {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-    }
+.flower,.heart{
+    position:absolute;
+    font-size:2em;
+    animation:float 5s linear infinite;
+    opacity:0;
+}
 
-    .flower, .heart {
-        position: absolute;
-        font-size: 2em;
-        animation: float 5s linear infinite;
-        opacity: 0;
-    }
+@keyframes float{
+    0%{transform:translateY(100vh);opacity:1;}
+    100%{transform:translateY(-100vh);opacity:0;}
+}
 
-    @keyframes float {
-        0% { transform: translateY(100vh); opacity: 1; }
-        100% { transform: translateY(-100vh); opacity: 0; }
-    }
+@keyframes pulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.05);}
+}
 
-    @keyframes pulse {
-        0%,100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-    }
+@keyframes fadeIn{
+    from{opacity:0;transform:scale(0.8);}
+    to{opacity:1;transform:scale(1);}
+}
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.8); }
-        to { opacity: 1; transform: scale(1); }
-    }
-
-    .success {
-        display: none;
-        animation: fadeIn 0.5s;
-    }
-
-    .success h2 {
-        font-size: 2.5em;
-        color: #ff69b4;
-        margin-bottom: 20px;
-    }
-
-    .success p {
-        font-size: 1.4em;
-        color: #555;
-        line-height: 1.6;
-    }
+.success{display:none;animation:fadeIn 0.5s;}
+.success h2{
+    font-size:2.5em;
+    color:#ff69b4;
+    margin-bottom:20px;
+}
+.success p{
+    font-size:1.4em;
+    color:#555;
+    line-height:1.6;
+}
 </style>
 </head>
 <body>
@@ -211,7 +193,7 @@
 <div class="hearts" id="hearts"></div>
 
 <div class="container">
-    <h1>💌 แบบทดสอบหัวใจ 💌</h1>
+    <h1>💌 แบบทดสอบหัวใจของม่อน 💌</h1>
 
     <div class="progress-bar">
         <div class="progress-fill" id="progressBar"></div>
@@ -219,34 +201,34 @@
 
     <!-- คำถามที่ 1 -->
     <div class="question-screen active" id="screen1">
-        <div class="question-text">ก่อนอื่น… เธอเป็นมนุษย์ใช่มั้ย 🤔</div>
+        <div class="question-text">ขอเช็กตัวตนก่อน… ชื่อ “ไชยนันท์” ใช่มั้ยครับ 😏</div>
         <div class="answer-buttons">
-            <button class="answer-btn" onclick="selectAnswer('human','ใช่')">ใช่แน่นอน</button>
-            <button class="answer-btn" onclick="selectAnswer('human','ไม่แน่')">ไม่แน่ อาจจะเป็นเทวดา 😳</button>
+            <button class="answer-btn" onclick="selectAnswer('name','ใช่')">ใช่ ชื่อนี้แหละ</button>
+            <button class="answer-btn" onclick="selectAnswer('name','ไม่ใช่')">ไม่ใช่นะ แต่ก็หล่ออยู่ดี</button>
         </div>
     </div>
 
     <!-- คำถามที่ 2 -->
     <div class="question-screen" id="screen2">
-        <div class="question-text">เธอชอบคนกวนๆ แต่จริงใจมั้ย 😎</div>
+        <div class="question-text">แล้วเกิดวันที่ 19 กรกฎาคม 2547 ใช่มั้ย 👀</div>
         <div class="answer-buttons">
-            <button class="answer-btn" onclick="selectAnswer('style','ชอบ')">ชอบมากกก</button>
-            <button class="answer-btn" onclick="selectAnswer('style','เฉยๆ')">ก็โอเคนะ</button>
+            <button class="answer-btn" onclick="selectAnswer('birthday','ใช่')">ใช่เป๊ะ 🎂</button>
+            <button class="answer-btn" onclick="selectAnswer('birthday','ไม่ใช่')">ไม่ตรง แต่ใจตรงกันก็พอ 😆</button>
         </div>
     </div>
 
     <!-- คำถามที่ 3 -->
     <div class="question-screen" id="screen3">
-        <div class="question-text">ถ้ามีคนหนึ่งคิดถึงเธอทุกวัน… เธอจะว่าไง 🥺</div>
+        <div class="question-text">ม่อนโอเคกับคนกวนๆ แต่รักจริงมั้ย 😎❤️</div>
         <div class="answer-buttons">
-            <button class="answer-btn" onclick="selectAnswer('think','น่ารัก')">น่ารักดีนะ</button>
-            <button class="answer-btn" onclick="selectAnswer('think','เขิน')">เขินอะ 😳</button>
+            <button class="answer-btn" onclick="selectAnswer('style','ชอบ')">ชอบนะ กวนดี น่ารักด้วย</button>
+            <button class="answer-btn" onclick="selectAnswer('style','เฉยๆ')">ก็…พอรับได้ 😅</button>
         </div>
     </div>
 
     <!-- คำถามสุดท้าย -->
     <div class="question-screen" id="screen4">
-        <div class="final-question">งั้น… จะยอมเป็นแฟนกับคนกวนๆ แต่รักจริงคนนี้มั้ย 💕</div>
+        <div class="final-question">งั้นขอถามตรงๆเลยนะ… ม่อนจะยอมเป็นแฟนกับเรามั้ย 💕</div>
         <div class="buttons">
             <button class="yes-btn" onclick="sayYes()">เป็นนนนน 💖</button>
             <button class="no-btn" id="noBtn" onmouseover="moveButton()">ไม่เอา 🙃</button>
@@ -255,87 +237,99 @@
 
     <!-- หน้าจอสำเร็จ -->
     <div class="success" id="success-box">
-        <h2>🎉 ภารกิจสำเร็จ 🎉</h2>
+        <h2>🎉 ยินดีด้วย ม่อน 🎉</h2>
         <p id="successMessage"></p>
-        <p style="margin-top: 20px;">สรุปคือ… ต่อให้เธอหนี ปุ่มมันก็หนีแทนเธอไม่ได้หรอก 😝💗</p>
+        <p style="margin-top:20px;">
+            สรุปง่ายๆ… ตั้งแต่วันนี้ “ม่อน” เป็นแฟนของเราแล้วนะ 💑❤️<br>
+            หนีปุ่มไม่พ้น… หนีใจเราก็ไม่พ้นเหมือนกัน 😝
+        </p>
     </div>
 </div>
 
 <script>
-let currentScreen = 1;
-const answers = {};
+let currentScreen=1;
+const answers={};
 
-function updateProgress() {
-    const progress = (currentScreen / 4) * 100;
-    document.getElementById('progressBar').style.width = progress + '%';
+function updateProgress(){
+    const progress=(currentScreen/4)*100;
+    document.getElementById('progressBar').style.width=progress+'%';
 }
 
-function showScreen(screenNumber) {
-    document.querySelectorAll('.question-screen').forEach(screen => {
-        screen.classList.remove('active');
-    });
-    document.getElementById('screen' + screenNumber).classList.add('active');
-    currentScreen = screenNumber;
+function showScreen(n){
+    document.querySelectorAll('.question-screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById('screen'+n).classList.add('active');
+    currentScreen=n;
     updateProgress();
 }
 
-function selectAnswer(key, value) {
-    answers[key] = value;
+function selectAnswer(k,v){
+    answers[k]=v;
     currentScreen++;
     showScreen(currentScreen);
 }
 
-function moveButton() {
-    const btn = document.getElementById('noBtn');
-    const maxX = window.innerWidth - 200;
-    const maxY = window.innerHeight - 100;
-    btn.style.position = 'fixed';
-    btn.style.left = Math.random() * maxX + 'px';
-    btn.style.top = Math.random() * maxY + 'px';
+function moveButton(){
+    const btn=document.getElementById('noBtn');
+    const maxX=window.innerWidth-200;
+    const maxY=window.innerHeight-100;
+    btn.style.position='fixed';
+    btn.style.left=Math.random()*maxX+'px';
+    btn.style.top=Math.random()*maxY+'px';
 }
 
-function sayYes() {
+function sayYes(){
     document.body.classList.add('accepted');
 
-    let message = "จากคำตอบทั้งหมด… 💌<br>";
-    message += "เราขอสรุปว่า…<br><br>";
-    message += "👉 เธอคือคนพิเศษของเรา<br>";
-    message += "👉 และตั้งแต่วินาทีนี้… เราเป็นแฟนกันแล้ว 😍💑<br><br>";
-    message += "ขอบคุณที่ยอมให้คนกวนๆ คนนี้ดูแลหัวใจเธอนะ ❤️";
+    let msg="จากคำตอบทั้งหมด… 💌<br><br>";
+    if(answers.name==="ใช่"){
+        msg+="✔ ชื่อ: ไชยนันท์ (ตัวจริงเสียงจริง)<br>";
+    }else{
+        msg+="✔ ชื่ออาจไม่ใช่ไชยนันท์ แต่เป็นคนพิเศษของเราแน่นอน<br>";
+    }
 
-    document.getElementById('successMessage').innerHTML = message;
-    document.querySelectorAll('.question-screen').forEach(s => s.style.display = 'none');
-    document.querySelector('.progress-bar').style.display = 'none';
-    document.getElementById('success-box').style.display = 'block';
+    if(answers.birthday==="ใช่"){
+        msg+="✔ เกิด: 19 กรกฎาคม 2547 🎂<br><br>";
+    }else{
+        msg+="✔ วันเกิดอาจไม่ตรง… แต่หัวใจตรงกันก็พอ 😍<br><br>";
+    }
+
+    msg+="และคำตอบสุดท้ายคือ…<br>";
+    msg+="👉 “ม่อน” ตกลงเป็นแฟนกับเราแล้วนะ 💑❤️<br><br>";
+    msg+="ขอบคุณที่เลือกคนกวนๆ คนนี้เป็นคนดูแลหัวใจนะ 🥰";
+
+    document.getElementById('successMessage').innerHTML=msg;
+    document.querySelectorAll('.question-screen').forEach(s=>s.style.display='none');
+    document.querySelector('.progress-bar').style.display='none';
+    document.getElementById('success-box').style.display='block';
 
     createHearts();
 }
 
-function createHearts() {
-    const heartsContainer = document.getElementById('hearts');
-    for (let i = 0; i < 40; i++) {
-        setTimeout(() => {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            heartsContainer.appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
-        }, i * 150);
+function createHearts(){
+    const c=document.getElementById('hearts');
+    for(let i=0;i<40;i++){
+        setTimeout(()=>{
+            const h=document.createElement('div');
+            h.className='heart';
+            h.innerHTML='❤️';
+            h.style.left=Math.random()*100+'%';
+            h.style.animationDuration=(Math.random()*3+3)+'s';
+            c.appendChild(h);
+            setTimeout(()=>h.remove(),6000);
+        },i*150);
     }
 }
 
-function createFlowers() {
-    const flowersContainer = document.getElementById('flowers');
-    const emojis = ['🌸','🌺','🌼','💮','🌷'];
-    setInterval(() => {
-        const f = document.createElement('div');
-        f.className = 'flower';
-        f.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
-        f.style.left = Math.random()*100 + '%';
-        f.style.animationDuration = (Math.random()*3+4)+'s';
-        flowersContainer.appendChild(f);
+function createFlowers(){
+    const c=document.getElementById('flowers');
+    const e=['🌸','🌺','🌼','💮','🌷'];
+    setInterval(()=>{
+        const f=document.createElement('div');
+        f.className='flower';
+        f.innerHTML=e[Math.floor(Math.random()*e.length)];
+        f.style.left=Math.random()*100+'%';
+        f.style.animationDuration=(Math.random()*3+4)+'s';
+        c.appendChild(f);
         setTimeout(()=>f.remove(),6000);
     },600);
 }
