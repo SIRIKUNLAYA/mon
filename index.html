@@ -22,7 +22,7 @@ body.accepted{
     background:linear-gradient(135deg,#ffdde1,#ee9ca7);
 }
 
-/* floating background hearts */
+/* background hearts */
 .bg-hearts span{
     position:fixed;
     bottom:-40px;
@@ -34,7 +34,7 @@ body.accepted{
     to{transform:translateY(-120vh);opacity:0}
 }
 
-/* main card */
+/* card */
 .container{
     width:100%;
     max-width:620px;
@@ -47,7 +47,7 @@ body.accepted{
     z-index:2;
 }
 
-/* music button */
+/* music */
 .music-btn{
     position:absolute;
     top:15px;
@@ -57,7 +57,6 @@ body.accepted{
     border-radius:50%;
     border:none;
     cursor:pointer;
-    font-size:.9em;
     background:rgba(255,182,193,.4);
     color:#b83280;
 }
@@ -89,7 +88,7 @@ body.accepted{
     margin-bottom:35px;
 }
 
-/* answer buttons */
+/* answers */
 .answer-buttons{
     display:flex;
     flex-direction:column;
@@ -148,7 +147,35 @@ body.accepted{
     line-height:1.6;
 }
 
-/* explode particles */
+/* success image */
+.success-img{
+    width:160px;
+    max-width:50vw;
+    margin:20px auto 25px;
+    display:block;
+    animation:pop .6s ease;
+}
+@media(max-width:480px){
+    .success-img{width:130px;}
+}
+@keyframes pop{
+    from{transform:scale(0)}
+    to{transform:scale(1)}
+}
+
+/* floating hearts from image */
+.float-heart{
+    position:fixed;
+    font-size:20px;
+    pointer-events:none;
+    animation:floatHeart 1.8s ease-out forwards;
+}
+@keyframes floatHeart{
+    from{transform:translate(0,0) scale(1);opacity:1;}
+    to{transform:translate(var(--x),-90px) scale(.4);opacity:0;}
+}
+
+/* explode */
 .particle{
     position:fixed;
     font-size:22px;
@@ -157,41 +184,13 @@ body.accepted{
     z-index:9999;
 }
 @keyframes explode{
-    0%{transform:translate(0,0) scale(1);opacity:1;}
-    100%{transform:translate(var(--x),var(--y)) scale(0);opacity:0;}
+    to{transform:translate(var(--x),var(--y)) scale(0);opacity:0;}
 }
 
 @keyframes fade{
     from{opacity:0;transform:scale(.9)}
     to{opacity:1;transform:scale(1)}
 }
-    /* success image (responsive for mobile) */
-.success-img{
-    width:120px;
-    max-width:40vw;
-    margin:15px auto 20px;
-    display:block;
-    animation:pop 0.6s ease, shy 1.6s ease-in-out infinite;
-}
-
-/* มือถือจอเล็ก */
-@media (max-width:480px){
-    .success-img{
-        width:90px;
-    }
-}
-
-/* animation */
-@keyframes pop{
-    0%{transform:scale(0);}
-    100%{transform:scale(1);}
-}
-
-@keyframes shy{
-    0%,100%{transform:rotate(0deg);}
-    50%{transform:rotate(-4deg);}
-}
-
 </style>
 </head>
 
@@ -300,12 +299,10 @@ const music=document.getElementById('bgMusic');
 let playing=false;
 
 function toggleMusic(){
-    playing ? music.pause() : music.play();
+    playing?music.pause():music.play();
     playing=!playing;
 }
-document.addEventListener('click',()=>{
-    if(!playing){music.play();playing=true;}
-},{once:true});
+document.addEventListener('click',()=>{if(!playing){music.play();playing=true;}},{once:true});
 
 function next(){
     document.getElementById(`screen${current}`).classList.remove('active');
@@ -321,32 +318,42 @@ function move(btn){
 }
 
 function explodeHearts(x,y){
-    const icons=['💖','❤️','💕','💘','✨','🎆'];
+    const icons=['💖','❤️','💕','✨'];
     for(let i=0;i<40;i++){
         const p=document.createElement('div');
         p.className='particle';
         p.innerHTML=icons[Math.floor(Math.random()*icons.length)];
         p.style.left=x+'px';
         p.style.top=y+'px';
-
-        const a=Math.random()*Math.PI*2;
-        const d=Math.random()*180+50;
-        p.style.setProperty('--x',Math.cos(a)*d+'px');
-        p.style.setProperty('--y',Math.sin(a)*d+'px');
-
+        p.style.setProperty('--x',(Math.random()*300-150)+'px');
+        p.style.setProperty('--y',(Math.random()*300-150)+'px');
         document.body.appendChild(p);
         setTimeout(()=>p.remove(),1200);
     }
 }
 
+function spawnHeart(){
+    const img=document.querySelector('.success-img');
+    if(!img) return;
+    const r=img.getBoundingClientRect();
+    const h=document.createElement('div');
+    h.className='float-heart';
+    h.innerHTML='💖';
+    h.style.left=r.left+r.width/2+'px';
+    h.style.top=r.top+20+'px';
+    h.style.setProperty('--x',(Math.random()*60-30)+'px');
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1800);
+}
+
 function finish(e){
     document.body.classList.add('accepted');
     explodeHearts(e.clientX,e.clientY);
-
     setTimeout(()=>{
         document.querySelectorAll('.question-screen').forEach(q=>q.style.display='none');
         document.querySelector('.progress-bar').style.display='none';
         document.getElementById('success').style.display='block';
+        setInterval(spawnHeart,700);
     },600);
 }
 </script>
