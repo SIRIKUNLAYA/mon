@@ -165,6 +165,33 @@ body.accepted{
     from{opacity:0;transform:scale(.9)}
     to{opacity:1;transform:scale(1)}
 }
+    /* success image (responsive for mobile) */
+.success-img{
+    width:120px;
+    max-width:40vw;
+    margin:15px auto 20px;
+    display:block;
+    animation:pop 0.6s ease, shy 1.6s ease-in-out infinite;
+}
+
+/* มือถือจอเล็ก */
+@media (max-width:480px){
+    .success-img{
+        width:90px;
+    }
+}
+
+/* animation */
+@keyframes pop{
+    0%{transform:scale(0);}
+    100%{transform:scale(1);}
+}
+
+@keyframes shy{
+    0%,100%{transform:rotate(0deg);}
+    50%{transform:rotate(-4deg);}
+}
+
 </style>
 </head>
 
