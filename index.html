@@ -34,6 +34,7 @@ body.accepted{
     border:3px solid #74c0fc;
     min-height:400px;
     transition:all 1s ease;
+    position:relative;
 }
 
 body.accepted .container{
@@ -185,6 +186,25 @@ button{
     color:#555;
     line-height:1.6;
 }
+
+/* ปุ่มเพลง */
+.music-btn{
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:none;
+    cursor:pointer;
+    font-size:1.4em;
+    background:rgba(116,192,252,0.9);
+    color:white;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+body.accepted .music-btn{
+    background:rgba(255,175,189,0.9);
+}
 </style>
 </head>
 <body>
@@ -192,7 +212,15 @@ button{
 <div class="flowers" id="flowers"></div>
 <div class="hearts" id="hearts"></div>
 
+<!-- เพลงพื้นหลัง -->
+<audio id="bgMusic" loop>
+    <source src="Austin Mahone - Someone Like You Audio.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
+    <!-- ปุ่มเปิด/ปิดเพลง -->
+    <button class="music-btn" id="musicToggle" onclick="toggleMusic()">🎵</button>
+
     <h1>💌 แบบทดสอบหัวใจของม่อน 💌</h1>
 
     <div class="progress-bar">
@@ -249,6 +277,31 @@ button{
 <script>
 let currentScreen=1;
 const answers={};
+
+// เพลง
+let isMusicPlaying=false;
+const bgMusic=document.getElementById('bgMusic');
+const musicToggle=document.getElementById('musicToggle');
+
+function toggleMusic(){
+    if(isMusicPlaying){
+        bgMusic.pause();
+        musicToggle.innerHTML='🔇';
+        isMusicPlaying=false;
+    }else{
+        bgMusic.play();
+        musicToggle.innerHTML='🎵';
+        isMusicPlaying=true;
+    }
+}
+
+// ให้เพลงเริ่มเมื่อมีการคลิกครั้งแรก (กัน autoplay ไม่ทำงาน)
+document.addEventListener('click',function(){
+    if(!isMusicPlaying){
+        bgMusic.play();
+        isMusicPlaying=true;
+    }
+},{once:true});
 
 function updateProgress(){
     const progress=(currentScreen/4)*100;
