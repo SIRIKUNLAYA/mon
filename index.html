@@ -42,14 +42,8 @@ body.accepted .container{
     border-color:#ffb6c1;
 }
 
-h1{
-    color:#4dabf7;
-    font-size:2.4em;
-    margin-bottom:25px;
-    animation:pulse 2s infinite;
-}
-
-body.accepted h1{color:#ff69b4;}
+/* ลบหัวข้อใหญ่ */
+h1{display:none;}
 
 .question-screen{display:none;animation:fadeIn 0.5s;}
 .question-screen.active{display:block;}
@@ -165,11 +159,6 @@ button{
     100%{transform:translateY(-100vh);opacity:0;}
 }
 
-@keyframes pulse{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.05);}
-}
-
 @keyframes fadeIn{
     from{opacity:0;transform:scale(0.8);}
     to{opacity:1;transform:scale(1);}
@@ -187,23 +176,30 @@ button{
     line-height:1.6;
 }
 
-/* ปุ่มเพลง */
+/* ปุ่มเพลงแบบเล็ก ไม่เด่น */
 .music-btn{
     position:absolute;
-    top:15px;
-    right:15px;
-    width:50px;
-    height:50px;
+    top:12px;
+    right:12px;
+    width:28px;
+    height:28px;
     border-radius:50%;
     border:none;
     cursor:pointer;
-    font-size:1.4em;
-    background:rgba(116,192,252,0.9);
-    color:white;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    font-size:0.8em;
+    background:rgba(116,192,252,0.4);
+    color:#2b6cb0;
+    box-shadow:none;
+    opacity:0.6;
+    transition:all 0.3s;
+}
+.music-btn:hover{
+    opacity:1;
+    transform:scale(1.05);
 }
 body.accepted .music-btn{
-    background:rgba(255,175,189,0.9);
+    background:rgba(255,175,189,0.4);
+    color:#b83280;
 }
 </style>
 </head>
@@ -218,10 +214,8 @@ body.accepted .music-btn{
 </audio>
 
 <div class="container">
-    <!-- ปุ่มเปิด/ปิดเพลง -->
-    <button class="music-btn" id="musicToggle" onclick="toggleMusic()">🎵</button>
-
-    <h1>💌 แบบทดสอบหัวใจของม่อน 💌</h1>
+    <!-- ปุ่มเปิด/ปิดเพลง (เล็ก ไม่เด่น) -->
+    <button class="music-btn" id="musicToggle" onclick="toggleMusic()">♪</button>
 
     <div class="progress-bar">
         <div class="progress-fill" id="progressBar"></div>
@@ -286,11 +280,11 @@ const musicToggle=document.getElementById('musicToggle');
 function toggleMusic(){
     if(isMusicPlaying){
         bgMusic.pause();
-        musicToggle.innerHTML='🔇';
+        musicToggle.innerHTML='♪';
         isMusicPlaying=false;
     }else{
         bgMusic.play();
-        musicToggle.innerHTML='🎵';
+        musicToggle.innerHTML='♫';
         isMusicPlaying=true;
     }
 }
