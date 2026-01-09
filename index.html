@@ -147,32 +147,25 @@ body.accepted{
     line-height:1.6;
 }
 
-/* success image */
+/* success image (ไม่โยก) */
 .success-img{
-    width:160px;
-    max-width:50vw;
-    margin:20px auto 25px;
+    width:180px;
+    max-width:60vw;
+    margin:25px auto;
     display:block;
-    animation:pop .6s ease;
-}
-@media(max-width:480px){
-    .success-img{width:130px;}
-}
-@keyframes pop{
-    from{transform:scale(0)}
-    to{transform:scale(1)}
 }
 
 /* floating hearts from image */
 .float-heart{
     position:fixed;
-    font-size:20px;
+    font-size:22px;
     pointer-events:none;
-    animation:floatHeart 1.8s ease-out forwards;
+    animation:floatHeart 1.6s ease-out forwards;
+    z-index:9999;
 }
 @keyframes floatHeart{
-    from{transform:translate(0,0) scale(1);opacity:1;}
-    to{transform:translate(var(--x),-90px) scale(.4);opacity:0;}
+    from{transform:translate(-50%,0) scale(1);opacity:1;}
+    to{transform:translate(-50%,-120px) scale(.3);opacity:0;}
 }
 
 /* explode */
@@ -196,7 +189,6 @@ body.accepted{
 
 <body>
 
-<!-- background hearts -->
 <div class="bg-hearts">
     <span style="left:10%;font-size:20px;animation-duration:14s">❤️</span>
     <span style="left:30%;font-size:26px;animation-duration:18s">💕</span>
@@ -281,12 +273,11 @@ body.accepted{
 
 <!-- SUCCESS -->
 <div class="success" id="success">
-     <img src="rose.png" alt="ให้ดอกไม้" class="success-img">
+    <img src="rose.png" class="success-img" id="successImg">
     <h2>🎉 ยินดีด้วย ม่อน 🎉</h2>
     <p>
         ตั้งแต่วันนี้ “ม่อน” เป็นแฟนของเราแล้วนะ 💑❤️<br>
-        ขอบคุณจริงๆนะที่ม่อนยังไม่ลืมเรา ครั้งที่เเล้วเราอาจจะปล่อยม่อนหลุดมือเราไป แต่ครั้งนี้ถ้าม่อนไม่ไล่ เราก็จะไม่ไปไหนแล้วนะ เราขี้เกียจ555 หยอกๆๆๆ 
-        ขอบคุณที่วนกลับมาหากันอีกนะ💖
+        ขอบคุณจริงๆนะที่ม่อนยังไม่ลืมเรา 💖
     </p>
 </div>
 
@@ -317,44 +308,27 @@ function move(btn){
     btn.style.top=Math.random()*80+'%';
 }
 
-function explodeHearts(x,y){
-    const icons=['💖','❤️','💕','✨'];
-    for(let i=0;i<40;i++){
-        const p=document.createElement('div');
-        p.className='particle';
-        p.innerHTML=icons[Math.floor(Math.random()*icons.length)];
-        p.style.left=x+'px';
-        p.style.top=y+'px';
-        p.style.setProperty('--x',(Math.random()*300-150)+'px');
-        p.style.setProperty('--y',(Math.random()*300-150)+'px');
-        document.body.appendChild(p);
-        setTimeout(()=>p.remove(),1200);
-    }
-}
-
-function spawnHeart(){
-    const img=document.querySelector('.success-img');
+function spawnHeartFromImage(){
+    const img=document.getElementById('successImg');
     if(!img) return;
     const r=img.getBoundingClientRect();
     const h=document.createElement('div');
     h.className='float-heart';
     h.innerHTML='💖';
-    h.style.left=r.left+r.width/2+'px';
-    h.style.top=r.top+20+'px';
-    h.style.setProperty('--x',(Math.random()*60-30)+'px');
+    h.style.left=(r.left + r.width/2)+'px';
+    h.style.top=(r.top + 10)+'px';
     document.body.appendChild(h);
-    setTimeout(()=>h.remove(),1800);
+    setTimeout(()=>h.remove(),1600);
 }
 
 function finish(e){
     document.body.classList.add('accepted');
-    explodeHearts(e.clientX,e.clientY);
     setTimeout(()=>{
         document.querySelectorAll('.question-screen').forEach(q=>q.style.display='none');
         document.querySelector('.progress-bar').style.display='none';
         document.getElementById('success').style.display='block';
-        setInterval(spawnHeart,700);
-    },600);
+        setInterval(spawnHeartFromImage,600);
+    },500);
 }
 </script>
 
