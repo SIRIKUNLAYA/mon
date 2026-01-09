@@ -123,7 +123,7 @@ body.accepted{
     background:#ddd;
 }
 
-/* SUCCESS CARD */
+/* SUCCESS */
 .success{
     display:none;
     text-align:center;
@@ -140,15 +140,11 @@ body.accepted{
     background:#fff;
     box-shadow:0 15px 40px rgba(0,0,0,.1);
 }
-
-/* success image */
 .success-img{
     width:180px;
     margin:20px auto;
     display:block;
 }
-
-/* typewriter text */
 .typewriter{
     font-size:1.35em;
     line-height:1.7;
@@ -196,7 +192,7 @@ body.accepted{
     <div class="progress-fill" id="progress"></div>
 </div>
 
-<!-- Q1–Q7 (เหมือนเดิม) -->
+<!-- Q1 -->
 <div class="question-screen active" id="screen1">
     <div class="question-text">ก่อนอื่น… เธอเป็นมนุษย์ใช่มั้ย 🤔</div>
     <div class="answer-buttons">
@@ -205,6 +201,52 @@ body.accepted{
     </div>
 </div>
 
+<!-- Q2 -->
+<div class="question-screen" id="screen2">
+    <div class="question-text">ขอเช็กตัวตนก่อน… ชื่อ “ไชยนันท์” ใช่มั้ยครับ 😏</div>
+    <div class="answer-buttons">
+        <button class="answer-btn" onclick="next()">ใช่ ชื่อนี้แหละ</button>
+        <button class="answer-btn" onclick="next()">ไม่ใช่นะ แต่ก็หล่ออยู่ดี</button>
+    </div>
+</div>
+
+<!-- Q3 -->
+<div class="question-screen" id="screen3">
+    <div class="question-text">แล้วเกิดวันที่ 19 กรกฎาคม 2547 ใช่มั้ย 👀</div>
+    <div class="answer-buttons">
+        <button class="answer-btn" onclick="next()">ใช่เป๊ะ 🎂</button>
+        <button class="answer-btn" onclick="next()">ไม่ตรง แต่ใจตรงกันก็พอ 😆</button>
+    </div>
+</div>
+
+<!-- Q4 -->
+<div class="question-screen" id="screen4">
+    <div class="question-text">ม่อนโอเคกับคนกวนๆ แต่รักจริงมั้ย 😎❤️</div>
+    <div class="answer-buttons">
+        <button class="answer-btn" onclick="next()">ชอบนะ กวนดี น่ารักด้วย</button>
+        <button class="answer-btn" onclick="next()">ก็…พอรับได้ 😅</button>
+    </div>
+</div>
+
+<!-- Q5 -->
+<div class="question-screen" id="screen5">
+    <div class="question-text">ถ้ามีคนหนึ่งคิดถึงเธอทุกวัน… เธอจะว่าไง 🥺</div>
+    <div class="answer-buttons">
+        <button class="answer-btn" onclick="next()">น่ารักดีนะ</button>
+        <button class="answer-btn" onclick="next()">เขินอะ 😳</button>
+    </div>
+</div>
+
+<!-- Q6 -->
+<div class="question-screen" id="screen6">
+    <div class="question-text">ถ้าเราคอยอยู่ข้างๆ ดูแลม่อนทุกวัน จะโอเคมั้ย 🥺</div>
+    <div class="answer-buttons">
+        <button class="answer-btn" onclick="next()">โอเคเลย อบอุ่นดี 💕</button>
+        <button class="answer-btn" onclick="next()">ขอลองดูก่อนได้มั้ย 😊</button>
+    </div>
+</div>
+
+<!-- Q7 -->
 <div class="question-screen" id="screen7">
     <div class="final-question">งั้นขอถามตรงๆเลยนะ… ม่อนจะยอมเป็นแฟนกับเรามั้ย 💕</div>
     <div class="buttons">
@@ -216,9 +258,7 @@ body.accepted{
 <!-- SUCCESS -->
 <div class="success" id="success">
     <h2>🎉 ยินดีด้วย ม่อน 🎉</h2>
-
     <img src="rose.png" class="success-img" id="successImg">
-
     <div class="success-card">
         <div class="typewriter" id="typeText"></div>
     </div>
@@ -277,7 +317,6 @@ function finish(){
     document.getElementById('success').style.display='block';
 
     typeWriter(successText,document.getElementById('typeText'));
-
     heartInterval=setInterval(spawnHeart,700);
 
     window.addEventListener('scroll',()=>{
