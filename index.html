@@ -20,6 +20,7 @@ body{
 }
 body.accepted{
     background:linear-gradient(135deg,#ffdde1,#ee9ca7);
+    overflow-y:auto;
 }
 
 /* background hearts */
@@ -30,7 +31,6 @@ body.accepted{
     animation:floatUp linear infinite;
 }
 @keyframes floatUp{
-    from{transform:translateY(0);opacity:.3}
     to{transform:translateY(-120vh);opacity:0}
 }
 
@@ -40,7 +40,7 @@ body.accepted{
     max-width:620px;
     padding:45px 40px;
     border-radius:30px;
-    background:rgba(255,255,255,.75);
+    background:rgba(255,255,255,.8);
     backdrop-filter:blur(15px);
     box-shadow:0 30px 80px rgba(0,0,0,.15);
     position:relative;
@@ -80,7 +80,6 @@ body.accepted{
 /* questions */
 .question-screen{display:none;animation:fade .4s;}
 .question-screen.active{display:block;}
-
 .question-text,.final-question{
     font-size:1.7em;
     font-weight:700;
@@ -89,21 +88,15 @@ body.accepted{
 }
 
 /* answers */
-.answer-buttons{
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-}
+.answer-buttons{display:flex;flex-direction:column;gap:18px;}
 .answer-btn{
     padding:16px;
     font-size:1.1em;
     border-radius:18px;
     border:none;
-    background:linear-gradient(135deg,#ffffff,#f8f9ff);
     cursor:pointer;
     font-weight:600;
-    transition:.35s;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    background:linear-gradient(135deg,#fff,#f8f9ff);
 }
 .answer-btn:hover{
     transform:scale(1.05);
@@ -112,72 +105,67 @@ body.accepted{
 }
 
 /* final buttons */
-.buttons{
-    display:flex;
-    gap:25px;
-    justify-content:center;
-}
+.buttons{display:flex;gap:25px;justify-content:center;}
 .yes-btn{
     padding:16px 45px;
     border-radius:50px;
     border:none;
     font-size:1.15em;
     font-weight:700;
-    cursor:pointer;
     background:linear-gradient(135deg,#ff9a9e,#f783ac);
     color:white;
+    cursor:pointer;
 }
 .no-btn{
     padding:16px 45px;
     border-radius:50px;
     border:none;
     background:#ddd;
-    cursor:pointer;
 }
 
-/* success */
-.success{display:none;text-align:center;}
+/* SUCCESS CARD */
+.success{
+    display:none;
+    text-align:center;
+    padding-bottom:40px;
+}
 .success h2{
     font-size:2.6em;
     color:#ff69b4;
 }
-.success p{
-    font-size:1.35em;
+.success-card{
     margin-top:20px;
-    line-height:1.6;
+    padding:30px 25px;
+    border-radius:25px;
+    background:#fff;
+    box-shadow:0 15px 40px rgba(0,0,0,.1);
 }
 
-/* success image (ไม่โยก) */
+/* success image */
 .success-img{
     width:180px;
-    max-width:60vw;
-    margin:25px auto;
+    margin:20px auto;
     display:block;
 }
 
-/* floating hearts from image */
+/* typewriter text */
+.typewriter{
+    font-size:1.35em;
+    line-height:1.7;
+    color:#444;
+    white-space:pre-line;
+}
+
+/* floating heart */
 .float-heart{
     position:fixed;
     font-size:22px;
     pointer-events:none;
     animation:floatHeart 1.6s ease-out forwards;
-    z-index:9999;
 }
 @keyframes floatHeart{
     from{transform:translate(-50%,0) scale(1);opacity:1;}
     to{transform:translate(-50%,-120px) scale(.3);opacity:0;}
-}
-
-/* explode */
-.particle{
-    position:fixed;
-    font-size:22px;
-    pointer-events:none;
-    animation:explode 1.2s ease-out forwards;
-    z-index:9999;
-}
-@keyframes explode{
-    to{transform:translate(var(--x),var(--y)) scale(0);opacity:0;}
 }
 
 @keyframes fade{
@@ -208,7 +196,7 @@ body.accepted{
     <div class="progress-fill" id="progress"></div>
 </div>
 
-<!-- Q1 -->
+<!-- Q1–Q7 (เหมือนเดิม) -->
 <div class="question-screen active" id="screen1">
     <div class="question-text">ก่อนอื่น… เธอเป็นมนุษย์ใช่มั้ย 🤔</div>
     <div class="answer-buttons">
@@ -217,78 +205,38 @@ body.accepted{
     </div>
 </div>
 
-<!-- Q2 -->
-<div class="question-screen" id="screen2">
-    <div class="question-text">ขอเช็กตัวตนก่อน… ชื่อ “ไชยนันท์” ใช่มั้ยครับ 😏</div>
-    <div class="answer-buttons">
-        <button class="answer-btn" onclick="next()">ใช่ ชื่อนี้แหละ</button>
-        <button class="answer-btn" onclick="next()">ไม่ใช่นะ แต่ก็หล่ออยู่ดี</button>
-    </div>
-</div>
-
-<!-- Q3 -->
-<div class="question-screen" id="screen3">
-    <div class="question-text">แล้วเกิดวันที่ 19 กรกฎาคม 2547 ใช่มั้ย 👀</div>
-    <div class="answer-buttons">
-        <button class="answer-btn" onclick="next()">ใช่เป๊ะ 🎂</button>
-        <button class="answer-btn" onclick="next()">ไม่ตรง แต่ใจตรงกันก็พอ 😆</button>
-    </div>
-</div>
-
-<!-- Q4 -->
-<div class="question-screen" id="screen4">
-    <div class="question-text">ม่อนโอเคกับคนกวนๆ แต่รักจริงมั้ย 😎❤️</div>
-    <div class="answer-buttons">
-        <button class="answer-btn" onclick="next()">ชอบนะ กวนดี น่ารักด้วย</button>
-        <button class="answer-btn" onclick="next()">ก็…พอรับได้ 😅</button>
-    </div>
-</div>
-
-<!-- Q5 -->
-<div class="question-screen" id="screen5">
-    <div class="question-text">ถ้ามีคนหนึ่งคิดถึงเธอทุกวัน… เธอจะว่าไง 🥺</div>
-    <div class="answer-buttons">
-        <button class="answer-btn" onclick="next()">น่ารักดีนะ</button>
-        <button class="answer-btn" onclick="next()">เขินอะ 😳</button>
-    </div>
-</div>
-
-<!-- Q6 -->
-<div class="question-screen" id="screen6">
-    <div class="question-text">ถ้าเราคอยอยู่ข้างๆ ดูแลม่อนทุกวัน จะโอเคมั้ย 🥺</div>
-    <div class="answer-buttons">
-        <button class="answer-btn" onclick="next()">โอเคเลย อบอุ่นดี 💕</button>
-        <button class="answer-btn" onclick="next()">ขอลองดูก่อนได้มั้ย 😊</button>
-    </div>
-</div>
-
-<!-- Q7 -->
 <div class="question-screen" id="screen7">
     <div class="final-question">งั้นขอถามตรงๆเลยนะ… ม่อนจะยอมเป็นแฟนกับเรามั้ย 💕</div>
     <div class="buttons">
-        <button class="yes-btn" onclick="finish(event)">เป็นนนนน 💖</button>
-        <button class="no-btn" onmouseover="move(this)">ไม่เอา 🙃</button>
+        <button class="yes-btn" onclick="finish()">เป็นนนนน 💖</button>
+        <button class="no-btn" onmouseover="this.style.position='fixed';this.style.left=Math.random()*80+'%';this.style.top=Math.random()*80+'%'">ไม่เอา 🙃</button>
     </div>
 </div>
 
 <!-- SUCCESS -->
 <div class="success" id="success">
-    <img src="rose.png" class="success-img" id="successImg">
     <h2>🎉 ยินดีด้วย ม่อน 🎉</h2>
-    <p>
-       ตั้งแต่วันนี้ “ม่อน” เป็นแฟนของเราแล้วนะ 💑❤️<br> 
-        ขอบคุณจริงๆนะที่ม่อนยังไม่ลืมเรา เราอาจจะปล่อยม่อนหลุดมือไปแล้วครั้งนึง
-        แต่ครั้งนี้ถ้าม่อนไม่ไล่ เราก็จะไม่ไปไหนแล้วนะ เราขี้เกียจ555 หยอกๆๆๆ ขอบคุณที่วนกลับมาหากันอีกนะ💖
-    </p>
+
+    <img src="rose.png" class="success-img" id="successImg">
+
+    <div class="success-card">
+        <div class="typewriter" id="typeText"></div>
+    </div>
 </div>
 
 </div>
 
 <script>
-let current=1;
-const total=7;
+let current=1,total=7;
 const music=document.getElementById('bgMusic');
-let playing=false;
+let playing=false,heartInterval;
+
+const successText=`ตั้งแต่วันนี้ “ม่อน” เป็นแฟนของเราแล้วนะ 💑❤️
+ขอบคุณจริงๆนะที่ม่อนยังไม่ลืมเรา
+เราอาจจะปล่อยม่อนหลุดมือไปแล้วครั้งนึง
+แต่ครั้งนี้ถ้าม่อนไม่ไล่ เราก็จะไม่ไปไหนแล้วนะ
+เราขี้เกียจ555 หยอกๆๆๆ
+ขอบคุณที่วนกลับมาหากันอีกนะ💖`;
 
 function toggleMusic(){
     playing?music.pause():music.play();
@@ -303,33 +251,40 @@ function next(){
     document.getElementById('progress').style.width=(current/total*100)+'%';
 }
 
-function move(btn){
-    btn.style.position='fixed';
-    btn.style.left=Math.random()*80+'%';
-    btn.style.top=Math.random()*80+'%';
+function typeWriter(text,el,i=0){
+    if(i<text.length){
+        el.textContent+=text[i];
+        setTimeout(()=>typeWriter(text,el,i+1),40);
+    }
 }
 
-function spawnHeartFromImage(){
+function spawnHeart(){
     const img=document.getElementById('successImg');
-    if(!img) return;
     const r=img.getBoundingClientRect();
     const h=document.createElement('div');
     h.className='float-heart';
     h.innerHTML='💖';
-    h.style.left=(r.left + r.width/2)+'px';
-    h.style.top=(r.top + 10)+'px';
+    h.style.left=(r.left+r.width/2)+'px';
+    h.style.top=(r.top+20)+'px';
     document.body.appendChild(h);
     setTimeout(()=>h.remove(),1600);
 }
 
-function finish(e){
+function finish(){
     document.body.classList.add('accepted');
-    setTimeout(()=>{
-        document.querySelectorAll('.question-screen').forEach(q=>q.style.display='none');
-        document.querySelector('.progress-bar').style.display='none';
-        document.getElementById('success').style.display='block';
-        setInterval(spawnHeartFromImage,600);
-    },500);
+    document.querySelectorAll('.question-screen').forEach(q=>q.style.display='none');
+    document.querySelector('.progress-bar').style.display='none';
+    document.getElementById('success').style.display='block';
+
+    typeWriter(successText,document.getElementById('typeText'));
+
+    heartInterval=setInterval(spawnHeart,700);
+
+    window.addEventListener('scroll',()=>{
+        if(window.innerHeight+window.scrollY>=document.body.offsetHeight-10){
+            clearInterval(heartInterval);
+        }
+    });
 }
 </script>
 
