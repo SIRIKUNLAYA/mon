@@ -4,414 +4,322 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ขอเป็นแฟนนะม่อน 😳💕</title>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-    background:linear-gradient(135deg,#e0f2ff 0%,#a5d8ff 50%,#74c0fc 100%);
+    font-family:'Segoe UI',Tahoma,Verdana,sans-serif;
     min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
+    background:linear-gradient(135deg,#cfe9ff,#fce4ec);
     overflow:hidden;
-    padding:20px;
-    transition:background 1s ease;
+    transition:1s;
 }
-
 body.accepted{
-    background:linear-gradient(135deg,#ffecd2 0%,#fcb69f 50%,#ff9a9e 100%);
+    background:linear-gradient(135deg,#ffdde1,#ee9ca7);
 }
 
-.container{
-    background:rgba(255,255,255,0.98);
-    padding:40px;
-    border-radius:30px;
-    text-align:center;
-    box-shadow:0 20px 60px rgba(116,192,252,0.4);
-    max-width:600px;
-    width:100%;
-    border:3px solid #74c0fc;
-    min-height:400px;
-    transition:all 1s ease;
-    position:relative;
-}
-
-body.accepted .container{
-    box-shadow:0 20px 60px rgba(255,182,193,0.4);
-    border-color:#ffb6c1;
-}
-
-h1{display:none;}
-
-.question-screen{display:none;animation:fadeIn 0.5s;}
-.question-screen.active{display:block;}
-
-.question-text{
-    font-size:1.6em;
-    color:#333;
-    margin-bottom:30px;
-    font-weight:600;
-}
-
-.answer-buttons{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-.answer-btn{
-    padding:14px 30px;
-    font-size:1.1em;
-    border:2px solid #74c0fc;
-    border-radius:15px;
-    cursor:pointer;
-    transition:all 0.3s;
-    background:white;
-    color:#4dabf7;
-    font-weight:600;
-}
-
-.answer-btn:hover{
-    background:linear-gradient(135deg,#a5d8ff 0%,#74c0fc 100%);
-    color:white;
-    transform:scale(1.05);
-    border-color:transparent;
-}
-
-.progress-bar{
-    width:100%;
-    height:8px;
-    background:#f0f0f0;
-    border-radius:10px;
-    margin-bottom:30px;
-    overflow:hidden;
-}
-
-.progress-fill{
-    height:100%;
-    background:linear-gradient(90deg,#a5d8ff 0%,#74c0fc 100%);
-    transition:width 0.5s ease;
-}
-
-body.accepted .progress-fill{
-    background:linear-gradient(90deg,#ffc3a0 0%,#ffafbd 100%);
-}
-
-.final-question{
-    font-size:1.7em;
-    color:#333;
-    margin:30px 0;
-    font-weight:700;
-}
-
-.buttons{
-    display:flex;
-    gap:20px;
-    justify-content:center;
-    margin-top:30px;
-}
-
-button{
-    padding:14px 40px;
-    font-size:1.1em;
-    border:none;
-    border-radius:50px;
-    cursor:pointer;
-    transition:all 0.3s;
-    font-weight:bold;
-}
-
-.yes-btn{
-    background:linear-gradient(135deg,#ffc3a0 0%,#ffafbd 100%);
-    color:white;
-}
-
-.yes-btn:hover{
-    transform:scale(1.1);
-    box-shadow:0 10px 30px rgba(255,175,189,0.6);
-}
-
-.no-btn{
-    background:#ddd;
-    color:#666;
-    position:relative;
-}
-
-.flowers,.hearts{
+/* floating background hearts */
+.bg-hearts span{
     position:fixed;
+    bottom:-40px;
+    opacity:.25;
+    animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+    from{transform:translateY(0);opacity:.3}
+    to{transform:translateY(-120vh);opacity:0}
+}
+
+/* main card */
+.container{
     width:100%;
-    height:100%;
-    pointer-events:none;
-    z-index:1;
+    max-width:620px;
+    padding:45px 40px;
+    border-radius:30px;
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(15px);
+    box-shadow:0 30px 80px rgba(0,0,0,.15);
+    position:relative;
+    z-index:2;
 }
 
-.flower,.heart{
-    position:absolute;
-    font-size:2em;
-    animation:float 5s linear infinite;
-    opacity:0;
-}
-
-@keyframes float{
-    0%{transform:translateY(100vh);opacity:1;}
-    100%{transform:translateY(-100vh);opacity:0;}
-}
-
-@keyframes fadeIn{
-    from{opacity:0;transform:scale(0.8);}
-    to{opacity:1;transform:scale(1);}
-}
-
-.success{display:none;animation:fadeIn 0.5s;}
-.success h2{
-    font-size:2.5em;
-    color:#ff69b4;
-    margin-bottom:20px;
-}
-.success p{
-    font-size:1.4em;
-    color:#555;
-    line-height:1.6;
-}
-
-/* ปุ่มเพลงแบบเล็ก ไม่เด่น */
+/* music button */
 .music-btn{
     position:absolute;
-    top:12px;
-    right:12px;
-    width:28px;
-    height:28px;
+    top:15px;
+    right:15px;
+    width:32px;
+    height:32px;
     border-radius:50%;
     border:none;
     cursor:pointer;
-    font-size:0.8em;
-    background:rgba(116,192,252,0.4);
-    color:#2b6cb0;
-    box-shadow:none;
-    opacity:0.6;
-    transition:all 0.3s;
-}
-.music-btn:hover{
-    opacity:1;
-    transform:scale(1.05);
-}
-body.accepted .music-btn{
-    background:rgba(255,175,189,0.4);
+    font-size:.9em;
+    background:rgba(255,182,193,.4);
     color:#b83280;
+}
+
+/* progress */
+.progress-bar{
+    width:100%;
+    height:10px;
+    background:#eee;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:30px;
+}
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#ff9a9e,#fad0c4);
+    transition:.5s;
+}
+
+/* questions */
+.question-screen{display:none;animation:fade .4s;}
+.question-screen.active{display:block;}
+
+.question-text,.final-question{
+    font-size:1.7em;
+    font-weight:700;
+    color:#444;
+    margin-bottom:35px;
+}
+
+/* answer buttons */
+.answer-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+.answer-btn{
+    padding:16px;
+    font-size:1.1em;
+    border-radius:18px;
+    border:none;
+    background:linear-gradient(135deg,#ffffff,#f8f9ff);
+    cursor:pointer;
+    font-weight:600;
+    transition:.35s;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+.answer-btn:hover{
+    transform:scale(1.05);
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    color:white;
+}
+
+/* final buttons */
+.buttons{
+    display:flex;
+    gap:25px;
+    justify-content:center;
+}
+.yes-btn{
+    padding:16px 45px;
+    border-radius:50px;
+    border:none;
+    font-size:1.15em;
+    font-weight:700;
+    cursor:pointer;
+    background:linear-gradient(135deg,#ff9a9e,#f783ac);
+    color:white;
+}
+.no-btn{
+    padding:16px 45px;
+    border-radius:50px;
+    border:none;
+    background:#ddd;
+    cursor:pointer;
+}
+
+/* success */
+.success{display:none;text-align:center;}
+.success h2{
+    font-size:2.6em;
+    color:#ff69b4;
+}
+.success p{
+    font-size:1.35em;
+    margin-top:20px;
+    line-height:1.6;
+}
+
+/* explode particles */
+.particle{
+    position:fixed;
+    font-size:22px;
+    pointer-events:none;
+    animation:explode 1.2s ease-out forwards;
+    z-index:9999;
+}
+@keyframes explode{
+    0%{transform:translate(0,0) scale(1);opacity:1;}
+    100%{transform:translate(var(--x),var(--y)) scale(0);opacity:0;}
+}
+
+@keyframes fade{
+    from{opacity:0;transform:scale(.9)}
+    to{opacity:1;transform:scale(1)}
 }
 </style>
 </head>
+
 <body>
 
-<div class="flowers" id="flowers"></div>
-<div class="hearts" id="hearts"></div>
+<!-- background hearts -->
+<div class="bg-hearts">
+    <span style="left:10%;font-size:20px;animation-duration:14s">❤️</span>
+    <span style="left:30%;font-size:26px;animation-duration:18s">💕</span>
+    <span style="left:55%;font-size:22px;animation-duration:16s">💖</span>
+    <span style="left:75%;font-size:28px;animation-duration:20s">❤️</span>
+</div>
 
 <audio id="bgMusic" loop>
     <source src="Austin Mahone - Someone Like You Audio.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
-    <button class="music-btn" id="musicToggle" onclick="toggleMusic()">♪</button>
 
-    <div class="progress-bar">
-        <div class="progress-fill" id="progressBar"></div>
-    </div>
-        <div class="question-screen active" id="screen1">
-        <div class="question-text">ก่อนอื่น… เธอเป็นมนุษย์ใช่มั้ย 🤔</div>
-        <div class="answer-buttons">
-            <button class="answer-btn" onclick="selectAnswer('human','ใช่')">ใช่แน่นอน</button>
-            <button class="answer-btn" onclick="selectAnswer('human','ไม่แน่')">ไม่แน่ อาจจะเป็นเทวดา 😳</button>
-        </div>
-    </div>
-    <!-- คำถามที่ 1 -->
-    <div class="question-screen active" id="screen1">
-        <div class="question-text">ขอเช็กตัวตนก่อน… ชื่อ “ไชยนันท์” ใช่มั้ยครับ 😏</div>
-        <div class="answer-buttons">
-            <button class="answer-btn" onclick="selectAnswer('name','ใช่')">ใช่ ชื่อนี้แหละ</button>
-            <button class="answer-btn" onclick="selectAnswer('name','ไม่ใช่')">ไม่ใช่นะ แต่ก็หล่ออยู่ดี</button>
-        </div>
-    </div>
+<button class="music-btn" onclick="toggleMusic()">♪</button>
 
-    <!-- คำถามที่ 2 -->
-    <div class="question-screen" id="screen2">
-        <div class="question-text">แล้วเกิดวันที่ 19 กรกฎาคม 2547 ใช่มั้ย 👀</div>
-        <div class="answer-buttons">
-            <button class="answer-btn" onclick="selectAnswer('birthday','ใช่')">ใช่เป๊ะ 🎂</button>
-            <button class="answer-btn" onclick="selectAnswer('birthday','ไม่ใช่')">ไม่ตรง แต่ใจตรงกันก็พอ 😆</button>
-        </div>
-    </div>
-    
-    <!-- คำถามที่ 3 -->
-    <div class="question-screen" id="screen3">
-        <div class="question-text">ม่อนโอเคกับคนกวนๆ แต่รักจริงมั้ย 😎❤️</div>
-        <div class="answer-buttons">
-            <button class="answer-btn" onclick="selectAnswer('style','ชอบ')">ชอบนะ กวนดี น่ารักด้วย</button>
-            <button class="answer-btn" onclick="selectAnswer('style','เฉยๆ')">ก็…พอรับได้ 😅</button>
-        </div>
-    </div>
+<div class="progress-bar">
+    <div class="progress-fill" id="progress"></div>
+</div>
 
-    <!-- คำถามที่ 4 (ใหม่) -->
-    <div class="question-screen" id="screen3">
-        <div class="question-text">ถ้ามีคนหนึ่งคิดถึงเธอทุกวัน… เธอจะว่าไง 🥺</div>
-        <div class="answer-buttons">
-            <button class="answer-btn" onclick="selectAnswer('think','น่ารัก')">น่ารักดีนะ</button>
-            <button class="answer-btn" onclick="selectAnswer('think','เขิน')">เขินอะ 😳</button>
-        </div>
-    </div>
-
-    <!-- คำถามที่ 5 (ใหม่) -->
-    <div class="question-screen" id="screen5">
-        <div class="question-text">ถ้าเราคอยอยู่ข้างๆ ดูแลม่อนทุกวัน จะโอเคมั้ย 🥺</div>
-        <div class="answer-buttons">
-            <button class="answer-btn" onclick="selectAnswer('care','โอเค')">โอเคเลย อบอุ่นดี 💕</button>
-            <button class="answer-btn" onclick="selectAnswer('care','ลองดู')">ขอลองดูก่อนได้มั้ย 😊</button>
-        </div>
-    </div>
-
-    <!-- คำถามที่ 6 (ใหม่) -->
-    <div class="question-screen" id="screen6">
-        <div class="question-text">ม่อนคิดว่าเราเป็นคนที่ดูแลหัวใจม่อนได้มั้ย ❤️</div>
-        <div class="answer-buttons">
-            <button class="answer-btn" onclick="selectAnswer('trust','ได้สิ')">ได้สิ น่าจะดูแลได้ดีนะ</button>
-            <button class="answer-btn" onclick="selectAnswer('trust','อาจจะได้')">อาจจะได้…ถ้าไม่ดื้อเกินไป 😝</button>
-        </div>
-    </div>
-
-    <!-- คำถามสุดท้าย -->
-    <div class="question-screen" id="screen7">
-        <div class="final-question">งั้นขอถามตรงๆเลยนะ… ม่อนจะยอมเป็นแฟนกับเรามั้ย 💕</div>
-        <div class="buttons">
-            <button class="yes-btn" onclick="sayYes()">เป็นนนนน 💖</button>
-            <button class="no-btn" id="noBtn" onmouseover="moveButton()">ไม่เอา 🙃</button>
-        </div>
-    </div>
-
-    <!-- หน้าจอสำเร็จ -->
-    <div class="success" id="success-box">
-        <h2>🎉 ยินดีด้วย ม่อน 🎉</h2>
-        <p id="successMessage"></p>
-        <p style="margin-top:20px;">
-            สรุปง่ายๆ… ตั้งแต่วันนี้ “ม่อน” เป็นแฟนของเราแล้วนะ 💑❤️<br>
-            หนีปุ่มไม่พ้น… หนีใจเราก็ไม่พ้นเหมือนกัน 😝
-        </p>
+<!-- Q1 -->
+<div class="question-screen active" id="screen1">
+    <div class="question-text">ก่อนอื่น… เธอเป็นมนุษย์ใช่มั้ย 🤔</div>
+    <div class="answer-buttons">
+        <button class="answer-btn" onclick="next()">ใช่แน่นอน</button>
+        <button class="answer-btn" onclick="next()">ไม่แน่ อาจจะเป็นเทวดา 😳</button>
     </div>
 </div>
 
-<script>
-let currentScreen=1;
-const answers={};
+<!-- Q2 -->
+<div class="question-screen" id="screen2">
+    <div class="question-text">ขอเช็กตัวตนก่อน… ชื่อ “ไชยนันท์” ใช่มั้ยครับ 😏</div>
+    <div class="answer-buttons">
+        <button class="answer-btn" onclick="next()">ใช่ ชื่อนี้แหละ</button>
+        <button class="answer-btn" onclick="next()">ไม่ใช่นะ แต่ก็หล่ออยู่ดี</button>
+    </div>
+</div>
 
-// เพลง
-let isMusicPlaying=false;
-const bgMusic=document.getElementById('bgMusic');
-const musicToggle=document.getElementById('musicToggle');
+<!-- Q3 -->
+<div class="question-screen" id="screen3">
+    <div class="question-text">แล้วเกิดวันที่ 19 กรกฎาคม 2547 ใช่มั้ย 👀</div>
+    <div class="answer-buttons">
+        <button class="answer-btn" onclick="next()">ใช่เป๊ะ 🎂</button>
+        <button class="answer-btn" onclick="next()">ไม่ตรง แต่ใจตรงกันก็พอ 😆</button>
+    </div>
+</div>
+
+<!-- Q4 -->
+<div class="question-screen" id="screen4">
+    <div class="question-text">ม่อนโอเคกับคนกวนๆ แต่รักจริงมั้ย 😎❤️</div>
+    <div class="answer-buttons">
+        <button class="answer-btn" onclick="next()">ชอบนะ กวนดี น่ารักด้วย</button>
+        <button class="answer-btn" onclick="next()">ก็…พอรับได้ 😅</button>
+    </div>
+</div>
+
+<!-- Q5 -->
+<div class="question-screen" id="screen5">
+    <div class="question-text">ถ้ามีคนหนึ่งคิดถึงเธอทุกวัน… เธอจะว่าไง 🥺</div>
+    <div class="answer-buttons">
+        <button class="answer-btn" onclick="next()">น่ารักดีนะ</button>
+        <button class="answer-btn" onclick="next()">เขินอะ 😳</button>
+    </div>
+</div>
+
+<!-- Q6 -->
+<div class="question-screen" id="screen6">
+    <div class="question-text">ถ้าเราคอยอยู่ข้างๆ ดูแลม่อนทุกวัน จะโอเคมั้ย 🥺</div>
+    <div class="answer-buttons">
+        <button class="answer-btn" onclick="next()">โอเคเลย อบอุ่นดี 💕</button>
+        <button class="answer-btn" onclick="next()">ขอลองดูก่อนได้มั้ย 😊</button>
+    </div>
+</div>
+
+<!-- Q7 -->
+<div class="question-screen" id="screen7">
+    <div class="final-question">งั้นขอถามตรงๆเลยนะ… ม่อนจะยอมเป็นแฟนกับเรามั้ย 💕</div>
+    <div class="buttons">
+        <button class="yes-btn" onclick="finish(event)">เป็นนนนน 💖</button>
+        <button class="no-btn" onmouseover="move(this)">ไม่เอา 🙃</button>
+    </div>
+</div>
+
+<!-- SUCCESS -->
+<div class="success" id="success">
+    <h2>🎉 ยินดีด้วย ม่อน 🎉</h2>
+    <p>
+        ตั้งแต่วันนี้ “ม่อน” เป็นแฟนของเราแล้วนะ 💑❤️<br>
+        หนีปุ่มไม่พ้น… หนีใจเราก็ไม่พ้นเหมือนกัน 😝
+    </p>
+</div>
+
+</div>
+
+<script>
+let current=1;
+const total=7;
+const music=document.getElementById('bgMusic');
+let playing=false;
 
 function toggleMusic(){
-    if(isMusicPlaying){
-        bgMusic.pause();
-        musicToggle.innerHTML='♪';
-        isMusicPlaying=false;
-    }else{
-        bgMusic.play();
-        musicToggle.innerHTML='♫';
-        isMusicPlaying=true;
-    }
+    playing ? music.pause() : music.play();
+    playing=!playing;
 }
-
-document.addEventListener('click',function(){
-    if(!isMusicPlaying){
-        bgMusic.play();
-        isMusicPlaying=true;
-    }
+document.addEventListener('click',()=>{
+    if(!playing){music.play();playing=true;}
 },{once:true});
 
-function updateProgress(){
-    const progress=(currentScreen/7)*100;
-    document.getElementById('progressBar').style.width=progress+'%';
+function next(){
+    document.getElementById(`screen${current}`).classList.remove('active');
+    current++;
+    document.getElementById(`screen${current}`).classList.add('active');
+    document.getElementById('progress').style.width=(current/total*100)+'%';
 }
 
-function showScreen(n){
-    document.querySelectorAll('.question-screen').forEach(s=>s.classList.remove('active'));
-    document.getElementById('screen'+n).classList.add('active');
-    currentScreen=n;
-    updateProgress();
-}
-
-function selectAnswer(k,v){
-    answers[k]=v;
-    currentScreen++;
-    showScreen(currentScreen);
-}
-
-function moveButton(){
-    const btn=document.getElementById('noBtn');
-    const maxX=window.innerWidth-200;
-    const maxY=window.innerHeight-100;
+function move(btn){
     btn.style.position='fixed';
-    btn.style.left=Math.random()*maxX+'px';
-    btn.style.top=Math.random()*maxY+'px';
+    btn.style.left=Math.random()*80+'%';
+    btn.style.top=Math.random()*80+'%';
 }
 
-function sayYes(){
-    document.body.classList.add('accepted');
-
-    let msg="จากคำตอบทั้งหมด… 💌<br><br>";
-    if(answers.name==="ใช่"){
-        msg+="✔ ชื่อ: ไชยนันท์ นามสกุล สุดที่รักกกก (ตัวจริงเสียงจริง)<br>";
-    }else{
-        msg+="✔ ชื่ออาจไม่ใช่ไชยนันท์ แต่เป็นคนพิเศษของเราแน่นอน<br>";
-    }
-
-    if(answers.birthday==="ใช่"){
-        msg+="✔ เกิด 19 กรกฎาคม 2547 ตรงกับเวันเกิดนื้อคู่เราเลยอะ 🎂<br><br>";
-    }else{
-        msg+="✔ วันเกิดอาจไม่ตรง… แต่หัวใจตรงกันก็พอ 😍<br><br>";
-    }
-
-    msg+="และคำตอบสุดท้ายคือ…<br>";
-    msg+="👉 “ม่อน” ตกลงเป็นแฟนกับเราแล้วนะ 💑❤️<br><br>";
-    msg+=" ขอบคุณจริงๆนะที่ม่อนไม่เคยลืมเรา จากนี้เราไม่ปล่อยแล้วนะถ้าม่อนไม่เปลี่ยนใจ เราก็ไม่เปลี่ยนใจเหมือนกันนน 🥰";
-
-    document.getElementById('successMessage').innerHTML=msg;
-    document.querySelectorAll('.question-screen').forEach(s=>s.style.display='none');
-    document.querySelector('.progress-bar').style.display='none';
-    document.getElementById('success-box').style.display='block';
-
-    createHearts();
-}
-
-function createHearts(){
-    const c=document.getElementById('hearts');
+function explodeHearts(x,y){
+    const icons=['💖','❤️','💕','💘','✨','🎆'];
     for(let i=0;i<40;i++){
-        setTimeout(()=>{
-            const h=document.createElement('div');
-            h.className='heart';
-            h.innerHTML='❤️';
-            h.style.left=Math.random()*100+'%';
-            h.style.animationDuration=(Math.random()*3+3)+'s';
-            c.appendChild(h);
-            setTimeout(()=>h.remove(),6000);
-        },i*150);
+        const p=document.createElement('div');
+        p.className='particle';
+        p.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+        p.style.left=x+'px';
+        p.style.top=y+'px';
+
+        const a=Math.random()*Math.PI*2;
+        const d=Math.random()*180+50;
+        p.style.setProperty('--x',Math.cos(a)*d+'px');
+        p.style.setProperty('--y',Math.sin(a)*d+'px');
+
+        document.body.appendChild(p);
+        setTimeout(()=>p.remove(),1200);
     }
 }
 
-function createFlowers(){
-    const c=document.getElementById('flowers');
-    const e=['🌸','🌺','🌼','💮','🌷'];
-    setInterval(()=>{
-        const f=document.createElement('div');
-        f.className='flower';
-        f.innerHTML=e[Math.floor(Math.random()*e.length)];
-        f.style.left=Math.random()*100+'%';
-        f.style.animationDuration=(Math.random()*3+4)+'s';
-        c.appendChild(f);
-        setTimeout(()=>f.remove(),6000);
+function finish(e){
+    document.body.classList.add('accepted');
+    explodeHearts(e.clientX,e.clientY);
+
+    setTimeout(()=>{
+        document.querySelectorAll('.question-screen').forEach(q=>q.style.display='none');
+        document.querySelector('.progress-bar').style.display='none';
+        document.getElementById('success').style.display='block';
     },600);
 }
-
-updateProgress();
-createFlowers();
 </script>
 
 </body>
